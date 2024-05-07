@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
@@ -23,11 +24,12 @@ Route::get('/signup', function () {
 
 Route::get('/signout', function () {
     Auth::logout();
-
+    
+    // Invalidate the session and regenerate the token.
     session()->invalidate();
     session()->regenerateToken();
 
-    return redirect('/');
+    return redirect('/signin');
     
 })->name('logout');
 
